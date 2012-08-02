@@ -46,7 +46,8 @@ def buildModule(path_to_local_dir, namespace_dir, module_dir):
 		print ("module dir always exists") 
 	else: 
 		try:
-			os.mkdir(namespace_dir)
+			if not os.path.exists(os.path.join(path_to_local_dir, namespace_dir)):
+				os.mkdir(namespace_dir)
 			os.mkdir(module_dir)
 			# created module sub dirs
 			os.mkdir(os.path.join(module_dir, 'Controller'))
