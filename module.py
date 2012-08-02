@@ -22,24 +22,24 @@ module = options.module.title()
 NAMESPACE_DIR = os.path.join(LOCAL_DIR, namespace)
 MODULE_DIR = os.path.join(LOCAL_DIR, NAMESPACE_DIR, module)
 
-config = ""
-config += "<config>\n\t"
-config += "<modules>\n\t\t"
-config += "<{0}_{1}>\n\t\t\t".format(namespace, module)
-config += "<version>0.1.0</version>\n\t\t"
-config += "</{0}_{1}>\n\t".format(namespace, module)
-config += "</modules>\n"
-config += "</config>\n"
+configxml = ""
+configxml += "<config>\n\t"
+configxml += "<modules>\n\t\t"
+configxml += "<{0}_{1}>\n\t\t\t".format(namespace, module)
+configxml += "<version>0.1.0</version>\n\t\t"
+configxml += "</{0}_{1}>\n\t".format(namespace, module)
+configxml += "</modules>\n"
+configxml += "</config>\n"
 
-config_module = ""
-config_module += "<config>\n\t"
-config_module += "<modules>\n\t\t"
-config_module += "<{0}_{1}>\n\t\t\t".format(namespace, module)
-config_module += "<active>true</active>\n\t\t\t"
-config_module += "<codePool>local</codePool>\n\t\t"
-config_module += "</{0}_{1}>\n\t".format(namespace, module)
-config_module += "</modules>\n"
-config_module += "</config>\n"
+namespace_module_xml = ""
+namespace_module_xml += "<config>\n\t"
+namespace_module_xml += "<modules>\n\t\t"
+namespace_module_xml += "<{0}_{1}>\n\t\t\t".format(namespace, module)
+namespace_module_xml += "<active>true</active>\n\t\t\t"
+namespace_module_xml += "<codePool>local</codePool>\n\t\t"
+namespace_module_xml += "</{0}_{1}>\n\t".format(namespace, module)
+namespace_module_xml += "</modules>\n"
+namespace_module_xml += "</config>\n"
 
 def buildModule(path_to_local_dir, namespace_dir, module_dir):
 	if os.path.exists(os.path.join(path_to_local_dir, namespace_dir)):
@@ -50,7 +50,7 @@ def buildModule(path_to_local_dir, namespace_dir, module_dir):
 		try:
 			os.mkdir(namespace_dir)
 			os.mkdir(module_dir)
-			# created sub dir
+			# created module sub dirs
 			os.mkdir(os.path.join(module_dir, 'Controller'))
 			os.mkdir(os.path.join(module_dir, 'controllers'))
 			os.mkdir(os.path.join(module_dir, 'etc'))
@@ -59,27 +59,27 @@ def buildModule(path_to_local_dir, namespace_dir, module_dir):
 			#created module config.xml file
 			config_filename = os.path.join(os.path.join(module_dir, 'etc'), "config.xml")
 			config_file = open(config_filename, 'w+')
-			config_file.write(config)
+			config_file.write(configxml)
 			config_file.close()
 		except Exception, e:
 			raise
 
-
-if os.path.exists(LOCAL_DIR):
-	buildModule(LOCAL_DIR, NAMESPACE_DIR, MODULE_DIR)
-	config_module_filename = "{0}_{1}.xml".format(namespace, module)
-	config_module_filename_path = os.path.join(ETC_MODULES_PATH, config_module_filename)
-	config_file_module = open(config_module_filename_path, 'w+')
-	config_file_module.write(config_module)
-	config_file_module.close()
-	print ("Module created...")
-else:
-	print ("Build local dir")
-	#try:
-	#	os.mkdir(LOCAL_DIR)
-	#	buildModule(LOCAL_DIR, NAMESPACE_DIR, MODULE_DIR)
-	#except Exception, e:
-	#	raise 
+if __name__ == '__main__':
+	if os.path.exists(LOCAL_DIR):
+		buildModule(LOCAL_DIR, NAMESPACE_DIR, MODULE_DIR)
+		config_module_filename = "{0}_{1}.xml".format(namespace, module)
+		config_module_filename_path = os.path.join(ETC_MODULES_PATH, config_module_filename)
+		config_file_module = open(config_module_filename_path, 'w+')
+		config_file_module.write(namespace_module_xml)
+		config_file_module.close()
+		print ("Module created...")
+	else:
+		print ("Build local dir")
+		#try:
+		#	os.mkdir(LOCAL_DIR)
+		#	buildModule(LOCAL_DIR, NAMESPACE_DIR, MODULE_DIR)
+		#except Exception, e:
+		#	raise 
 
 
 
