@@ -42,9 +42,7 @@ namespace_module_xml += "</modules>\n"
 namespace_module_xml += "</config>\n"
 
 def buildModule(path_to_local_dir, namespace_dir, module_dir):
-	if os.path.exists(os.path.join(path_to_local_dir, namespace_dir)):
-		print ("namespace dir always exists") 
-	elif os.path.exists(os.path.join(path_to_local_dir, namespace_dir, module_dir)):
+	if os.path.exists(os.path.join(path_to_local_dir, namespace_dir, module_dir)):
 		print ("module dir always exists") 
 	else: 
 		try:
@@ -56,6 +54,7 @@ def buildModule(path_to_local_dir, namespace_dir, module_dir):
 			os.mkdir(os.path.join(module_dir, 'etc'))
 			os.mkdir(os.path.join(module_dir, 'Helper'))
 			os.mkdir(os.path.join(module_dir, 'Model'))
+			os.mkdir(os.path.join(module_dir, 'sql'))
 			#created module config.xml file
 			config_filename = os.path.join(os.path.join(module_dir, 'etc'), "config.xml")
 			config_file = open(config_filename, 'w+')
