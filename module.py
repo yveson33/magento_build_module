@@ -43,20 +43,20 @@ config_module += "</config>\n"
 
 def buildModule(path_to_local_dir, namespace_dir, module_dir):
 	if os.path.exists(os.path.join(path_to_local_dir, namespace_dir)):
-		print ("le namespace existe deja") 
+		print ("namespace dir always exists") 
 	elif os.path.exists(os.path.join(path_to_local_dir, namespace_dir, module_dir)):
-		print ("le module existe deja") 
+		print ("module dir always exists") 
 	else: 
 		try:
 			os.mkdir(namespace_dir)
 			os.mkdir(module_dir)
-			# creation des sous repertoires
+			# created sub dir
 			os.mkdir(os.path.join(module_dir, 'Controller'))
 			os.mkdir(os.path.join(module_dir, 'controllers'))
 			os.mkdir(os.path.join(module_dir, 'etc'))
 			os.mkdir(os.path.join(module_dir, 'Helper'))
 			os.mkdir(os.path.join(module_dir, 'Model'))
-			#module file
+			#created module config.xml file
 			config_filename = os.path.join(os.path.join(module_dir, 'etc'), "config.xml")
 			config_file = open(config_filename, 'w+')
 			config_file.write(config)
